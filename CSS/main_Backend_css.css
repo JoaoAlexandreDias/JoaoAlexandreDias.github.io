@@ -1,0 +1,126 @@
+
+body{
+    font-family: arial;
+    margin:0; 
+}
+
+nav {
+    display: flex;
+    margin-top: 4px;
+    justify-content: space-between;
+    padding: 10px;
+    min-height: 5vh;
+    align-items: center;
+
+}
+
+.nav-left {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0; /* Align the dropdown to the right of the button */
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.dropdown-content form {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content form * {
+    margin-bottom: 5px;
+}
+
+/* Decorative line between buttons */
+.dropdown-content form + form {
+    border-top: 1px solid #ddd;
+}
+
+/* Button styles */
+.nav-btn {
+    text-decoration: none;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.logout-btn {
+    background-color: #dc3545;
+}
+/* Container for the list */
+.horizontal-list {
+    display: flex; /* Makes the list items align horizontally */
+    justify-content: center;
+    flex-wrap: wrap; /* Ensures items wrap to the next line if they overflow */
+    list-style-type: none; /* Removes bullet points */
+    padding: 0; /* Removes default padding */
+    margin: 0; /* Removes default margin */
+}
+
+.horizontal-list-categories {
+    display: flex; /* Makes the list items align horizontally */
+    justify-content: center;
+    flex-wrap: wrap; /* Ensures items wrap to the next line if they overflow */
+    list-style-type: none; /* Removes bullet points */
+    padding: 0; /* Removes default padding */
+    margin: 0; /* Removes default margin */
+}
+
+/* Individual list items */
+.horizontal-list li {
+    margin: 10px; /* Adds some spacing between items */
+    padding: 10px; /* Adds padding inside each item */
+    border: 1px solid #ccc; /* Optional: Add a border for better visualization */
+    border-radius: 5px; /* Optional: Rounds corners */
+    background-color: #f9f9f9; /* Optional: Background color for contrast */
+    text-align: center; /* Centers the content inside the list item */
+    min-width: 100px;
+}
+/* Individual list items */
+.horizontal-list-categories li {
+    margin: 10px; /* Adds some spacing between items */
+    padding: 10px; /* Adds padding inside each item */
+    text-align: center; /* Centers the content inside the list item */
+    min-width: 100px;
+}
+
+main{
+    display:flex;
+}
+
+.list{
+
+    background-color: blue;
+    width: 20vw;
+    height: 95vh;
+}
+
+.data{
+
+    background-color: orange;
+    height: 95vh;
+    width: 80vw;
+
+}
