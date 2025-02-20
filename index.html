@@ -11,54 +11,46 @@
     <title>Portfolio</title>
     
     <link rel="stylesheet" href="CSS/main_css.css">
-    
+    <script src="https://kit.fontawesome.com/7bdd3e8ea3.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
-
+    <nav id="navbar-content"></nav>
 <body>
+    
+    
+    <main id="main-content">
 
-    <header>
-        <div>
-            <h1>João Dias</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#about">About Me</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div></div>
-    </header>
-    
-    <section id="about">
-        
-        <h2>About Me</h2>
-        
-        <p>This is where you can write a brief introduction about yourself.</p>
-        
-    </section>
-    
-    <section id="projects">
-        
-        <h2>Projects</h2>
-        
-        <p>Showcase your projects here.</p>
-        
-    </section>
-    
-    <section id="contact">
-        
-        <h2>Contact</h2>
-        
-        <p>Provide your contact information here.</p>
-        
-    </section>
-    
-    <footer>
-        
-        <p>&copy; 2025 João Dias. All rights reserved.</p>
-        
-    </footer>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("Templates/Navbar.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("navbar-content").innerHTML = data;
+
+                    // Add event listeners to navbar links
+                    document.querySelectorAll('nav a[data-target]').forEach(link => {
+                        link.addEventListener('click', function(event) {
+                            event.preventDefault();
+                            const target = this.getAttribute('data-target');
+                            fetch(target)
+                                .then(response => response.text())
+                                .then(data => {
+                                    document.getElementById("main-content").innerHTML = data;
+                                });
+                        });
+                    });
+                });
+
+                // Automatically load the "projects.html" content
+                fetch("projects.html")
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById("main-content").innerHTML = data;
+                    });
+                });
+    </script>
     
 </body>
 

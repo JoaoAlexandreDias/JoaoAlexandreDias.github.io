@@ -1,143 +1,149 @@
-
-body{
-    background-color: #c1c1c1;
+/* Body */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
     height: 100vh;
-    margin: 0;
-    font-family: arial;
-    margin-bottom: 50px;
 }
-
-/* Extra small devices (portrait phones, less than 576px) */
-@media (max-width: 575.98px) {
-    .horizontal-list li {
-        min-width: 60px;
-    }
-    body {
-        font-size: 14px;
-    }
-    header h1 {
-        font-size: 24px;
-    }
-}
-
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
-    .horizontal-list li {
-        min-width: 80px;
-    }
-    body {
-        font-size: 16px;
-    }
-    header h1 {
-        font-size: 28px;
-    }
-}
-
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-    .horizontal-list li {
-        min-width: 100px;
-    }
-    body {
-        font-size: 18px;
-    }
-    header h1 {
-        font-size: 32px;
-    }
-}
-
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-    .horizontal-list li {
-        min-width: 120px;
-    }
-    body {
-        font-size: 20px;
-    }
-    header h1 {
-        font-size: 36px;
-    }
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-    .horizontal-list li {
-        min-width: 140px;
-    }
-    body {
-        font-size: 22px;
-    }
-    header h1 {
-        font-size: 40px;
-    }
-}
-
-/* Specific styles for different orientations (portrait or landscape) */
-@media (orientation: landscape) {
-    .horizontal-list li {
-        min-width: 90px;
-    }
-}
-
-@media (orientation: portrait) {
-    .horizontal-list li {
-        min-width: 70px;
-    }
-}
-header {
-    background-color: #333;
-    color: #fff;
+nav{
+    font-family: "Work Sans", sans-serif;
+    font-weight: 600;
+    background-color: #be9a7e;
+    width: 18%;
+    height: 100%;
+    color: white;
+    padding: 10px;
     text-align: center;
-    padding: 10px 0;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
     align-items: center;
-    padding: 10px 20px;
+    position: fixed;
 }
-header div {
-    display: flex;
-    align-items: center;
-    width: calc(100%/3);
-}
-nav {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    
-}
-nav ul {
+nav ul{
     list-style-type: none;
-    margin: 0;
     padding: 0;
+    font-size: 1.5em;
 }
-nav ul li {
-    display: inline;
-    margin-right: 10px;
+nav ul li{
+    margin: 20px 10px;
 }
-nav ul li a {
-    color: #fff;
+nav ul li a{
+    color: white;
     text-decoration: none;
 }
-section {
-    margin-top: 50px;
-    padding: 20px;
-    height: calc(100vh - 50px); /* Assuming header and nav combined height is 100px */
+nav ul li a:hover{
+    color: white;
+    text-decoration: underline;
 }
-#about {
-    background-color: #f4f4f4;
+nav ul li a:active{
+    color: rgb(135, 103, 69);
+    text-decoration: underline;
 }
-#projects{
-    background-color: #e2acac;
+.social-media{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
 }
-#contact{
-    background-color: #777da4;
+.navbar-brand{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 2.5em;
+    font-weight:900;
+    color: white;
+    text-decoration: none;
+}
+main{
+    margin-left: 20%;
+    margin-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+main div{
+    margin:5px;
+}
+main div:hover{
+    transform: scale(1.05);
+    transition: transform 0.5s ease-in-out;
+    filter: brightness(1.3);
+    transition: filter 0.2s ease-in-out;
+}
+main img{
+    width: 500px;
+    height: auto;
+    margin:5px
+}
+@media (max-width: 1000px) {
+    nav{
+        width: 100vw;
+        height: min-content;
+        color: white;
+        padding: 10px 0px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    nav ul{
+        list-style-type: none;
+        padding: 0;
+    }
+    nav ul li{
+        display: inline;
+        margin: 0px 10px;
+    }
+    nav ul li a{
+        color: white;
+        text-decoration: none;
+    }
+    .social-media{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+    }
+    .navbar-brand{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 2.5em;
+        font-weight:900;
+        color: white;
+        text-decoration: none;
+        
+    }
+    .social-media{
+        display: inline;
+    }
+    main{
+        margin: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    
+    }
+    main img{
+        width: 500px;
+        height: auto;
+        margin:5px
+    }
 }
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #7e6450;
+    margin-top: 5px;
+    color: white;
+    padding: 7px;
     text-align: center;
-    padding: 10px 0;
-    position: fixed;
     bottom: 0;
-    width: 100%;
 }
