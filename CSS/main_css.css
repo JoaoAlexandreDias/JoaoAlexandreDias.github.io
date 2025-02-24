@@ -1,6 +1,7 @@
-/* Body */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: "Roboto", sans-serif;
     margin: 0;
     height: 100vh;
 }
@@ -66,19 +67,99 @@ main{
     justify-content: center;
 
 }
-main div{
+.article{
+    width: auto;
+    height: 200px;
     margin:5px;
+    filter: brightness(0.8);
 }
-main div:hover{
+.article:hover{
     transform: scale(1.05);
     transition: transform 0.5s ease-in-out;
-    filter: brightness(1.3);
+    filter: brightness(1);
     transition: filter 0.2s ease-in-out;
 }
-main img{
-    width: 500px;
+.center_full{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.half_center {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.half_left {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.half_section_text{
+    width: 90%;
+    text-align: center;
+    
+}
+
+.half_right {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.one_third{
+    width: 33.33%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.two_thirds{
+    width: 66.66%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.full_size{
+    width: 100%;
     height: auto;
-    margin:5px
+    margin:5px;
+}
+
+.spacer{
+    width: 100%;
+    height: 20px;
+}
+
+#Titulo_Intro{
+
+    text-align: center;
+    margin: 10px;
+
+}
+#Titulo_Intro h1{
+    font-size: 3em;
+    font-weight: 900;
+    color: #be9a7e;
+    margin: 10px;
 }
 @media (max-width: 1000px) {
     nav{
@@ -134,16 +215,8 @@ main img{
     
     }
     main img{
-        width: 500px;
-        height: auto;
+        width: auto;
+        height: 50px;
         margin:5px
     }
-}
-footer {
-    background-color: #7e6450;
-    margin-top: 5px;
-    color: white;
-    padding: 7px;
-    text-align: center;
-    bottom: 0;
 }
