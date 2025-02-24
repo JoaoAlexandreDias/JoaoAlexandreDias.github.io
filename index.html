@@ -22,35 +22,7 @@
 
     </main>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            fetch("Templates/Navbar.html")
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("navbar-content").innerHTML = data;
-
-                    // Add event listeners to navbar links
-                    document.querySelectorAll('nav a[data-target]').forEach(link => {
-                        link.addEventListener('click', function(event) {
-                            event.preventDefault();
-                            const target = this.getAttribute('data-target');
-                            fetch(target)
-                                .then(response => response.text())
-                                .then(data => {
-                                    document.getElementById("main-content").innerHTML = data;
-                                });
-                        });
-                    });
-                });
-
-                // Automatically load the "projects.html" content
-                fetch("projects.html")
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("main-content").innerHTML = data;
-                    });
-                });
-    </script>
+<script src="loading.js"></script>
     
 </body>
 
