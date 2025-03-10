@@ -1,0 +1,43 @@
+{
+    "title": "New Project",
+    "date": "2026-04-10",
+    "front_image": "aspis.jpg",
+    "category": "3D Modeling",
+    "sections": [
+        {
+            "id": "Titulo_Intro",
+            "class": "center_full",
+            "content_file": "content1.html",
+            "pictures": [],
+            "picture_class": ""
+        },
+        {
+            "id": "",
+            "class": "spacer",
+            "content_file": "",
+            "pictures": [],
+            "picture_class": ""
+        },
+        {
+            "id": "section3",
+            "class": "half_center",
+            "content_file": "content2.html",
+            "pictures": [],
+            "picture_class": ""
+        },
+        {
+            "id": "section2",
+            "class": "half_left",
+            "content_file": "",
+            "pictures": ["aspis.jpg"],
+            "picture_class": "full_size"
+        },
+        {
+            "id": "section3",
+            "class": "class3",
+            "content_file": "content3.html",
+            "pictures": [],
+            "picture_class": ""
+        }
+    ]
+}

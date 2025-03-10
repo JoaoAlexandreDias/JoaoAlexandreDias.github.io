@@ -1,11 +1,18 @@
-    <a class="navbar-brand" href="#">João Dias</a>
+    <header><a href="#">João Dias</a></header>
     <!--<button class="navbar-toggler" onclick="toggleNavbar()">
       <span class="navbar-toggler-icon">☰</span>
-    </button> -->
+    </button>
 
     <ul>
-        <li><a href="#" data-target="about.html" data-title="About - Portfolio">About</a></li>
-        <li><a href="#" data-target="projects.html"  data-title="Portfolio">Projects</a></li>
+        <li><a href="#" data-target="projects.html"  data-title="Portfolio"><h2>Projects</h2></a></li>
+        <li>
+            <ul id="categories">
+                <li><a href="#" data-category="All">All</a></li>
+                <li><a href="#" data-category="Illustration">Illustration</a></li>
+                <li><a href="#" data-category="3D Modeling">3D Modeling</a></li>
+            </ul>
+        </li>
+        <li><a href="#" data-target="about.html" data-title="About - Portfolio"><h2>About</h2></a></li>
         <li>
             <ul class="social-media">
                 <li>
@@ -22,3 +29,23 @@
             
         </li>
       </ul>
+    -->
+
+      <a href="#" data-target="projects" data-sub-target=""  data-title="Portfolio"><h2>Projects</h2></a>
+
+      <div id="categories">
+        <a href="#" data-category="All">All</a>
+        <a href="#" data-category="Illustration">Illustration</a>
+        <a href="#" data-category="3D Modeling">3D Modeling</a>
+      </div>
+
+      <a href="#" data-target="about.html" data-title="About - Portfolio"><h2>About</h2></a>
+
+      <div id="social-media">
+        <a href="https://www.linkedin.com/in/joao-dias" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://github.com/JoaoAlexandreDias" target="_blank">
+            <i class="fa-brands fa-linkedin"></i>
+        </a>
+      </div>

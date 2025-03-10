@@ -7,7 +7,9 @@ const directoryPath = path.join(__dirname, 'Projects');
 // Default config content
 const defaultConfig = {
     title: "New Project",
+    date: "",
     front_image: "",
+    category: "",
     sections: [
         {
             id: "section1",
