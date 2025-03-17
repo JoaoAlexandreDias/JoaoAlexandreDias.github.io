@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+/*document.addEventListener("DOMContentLoaded", function() {
     fetch("Templates/Navbar.html")
         .then(response => response.text())
         .then(data => {
@@ -115,6 +115,7 @@ function loadProjectsPage(category) {
         filterProjects(category);
     });
 }
+*/
 
 // Function to add event listeners to images for fullscreen mode
 function addImageClickEventListeners() {
@@ -133,3 +134,24 @@ function addImageClickEventListeners() {
         });
     });
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    const isRootPath = window.location.pathname === "/";
+    const isAboutPath = window.location.pathname === "/about.html";
+    const isProjectsPath = window.location.pathname.includes("/Projects/");
+    if (!isRootPath && !isAboutPath) {
+        document.getElementById("main_content").style.flexDirection = "row";
+    } else {
+        document.getElementById("main_content").removeAttribute("style");
+    }
+    if (isProjectsPath) {
+        addImageClickEventListeners();
+    }
+    if (isRootPath) {
+        document.getElementById("nav_projects").classList.add("active");
+        document.getElementById("nav_about").removeAttribute("class");
+    }else if (isAboutPath) {
+        document.getElementById("nav_about").classList.add("active");
+        document.getElementById("nav_projects").removeAttribute("class");
+    }
+});
