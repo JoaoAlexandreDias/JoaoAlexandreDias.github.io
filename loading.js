@@ -139,19 +139,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const isRootPath = window.location.pathname === "/";
     const isAboutPath = window.location.pathname === "/about.html";
     const isProjectsPath = window.location.pathname.includes("/Projects/");
-    if (!isRootPath && !isAboutPath) {
-        document.getElementById("main_content").style.flexDirection = "row";
-    } else {
-        document.getElementById("main_content").removeAttribute("style");
-    }
     if (isProjectsPath) {
         addImageClickEventListeners();
+        document.getElementById("navbar-content").style.position = "relative";
     }
     if (isRootPath) {
         document.getElementById("nav_projects").classList.add("active");
-        document.getElementById("nav_about").removeAttribute("class");
+        document.getElementById("main_content").classList.add("image-grid");
     }else if (isAboutPath) {
         document.getElementById("nav_about").classList.add("active");
-        document.getElementById("nav_projects").removeAttribute("class");
     }
 });

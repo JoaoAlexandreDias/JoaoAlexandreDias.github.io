@@ -19,8 +19,7 @@ function readFileContent(filePath) {
 
 // Function to generate HTML content for projects
 function generateHTML(folders) {
-    let mainHtmlContent = '';
-    let allHtmlContent = '';
+    let projects = '';
 
     // Read and parse config files, then sort folders by date
     const folderConfigs = folders.map(folder => {
@@ -29,6 +28,7 @@ function generateHTML(folders) {
         let config = {
             title: folder,
             date: "",
+            importance: "",
             category: "",
             front_image: ""
         };
@@ -49,6 +49,7 @@ function generateHTML(folders) {
         let imagePath = defaultImagePath;
         const title = config.title || folder;
         const category = config.category || '';
+        var importance = config.importance || '';
 
         if (config.front_image) {
             const frontImagePath = path.join(folderPath, 'media', config.front_image);
@@ -57,19 +58,22 @@ function generateHTML(folders) {
             }
         }
 
-        const articleHtml = `<article data-category="${category}"><a href="Projects/${folder}" data-title="${title} - Portfolio"><img class="article" src="${imagePath}" alt="${title}"></a></article>\n`;
-
-        if (index < 3) {
-            mainHtmlContent += articleHtml;
-        } else {
-            allHtmlContent += articleHtml;
+        if (importance === "High") {
+            importance = "large";
+        }else if (importance === "Medium") {
+            importance = "medium";
+        }else{
+            importance = "";
         }
+
+        const articleHtml = `<article data-category="${category}" class="${importance}"><a href="Projects/${folder}" data-title="${title} - Portfolio"><img class="article" src="${imagePath}" alt="${title}"></a></article>\n`;
+
+            projects += articleHtml;
     });
 
-    const mainHtml = `<section>${mainHtmlContent}</section>`;
-    const allHtml = `<div>${allHtmlContent}</div>`;
+    const mainHtml = `${projects}`;
 
-    return { mainHtml, allHtml };
+    return { mainHtml};
 }
 
 // Function to generate HTML content for each folder
@@ -94,13 +98,11 @@ function generateFolderHTML(folderPath, folderName) {
             }
         } else if (section.pictures && section.pictures.length > 0) {
             if (section.id === 'image-grid') {
-                content = '<div id="image-grid">';
                 section.pictures.forEach(picture => {
                     const imagePath = path.join('media', picture);
                     const relativeImagePath = path.relative(__dirname, imagePath).replace(/\\/g, '/');
                     content += `<div><img src="${relativeImagePath}" class="${section.picture_class} image-clickable" alt="${section.id}"></div>`;
                 });
-                content += '</div>';
             } else {
                 section.pictures.forEach(picture => {
                     const imagePath = path.join('media', picture);
@@ -163,7 +165,7 @@ fs.readdir(directoryPath, (err, items) => {
     const { mainHtml, allHtml } = generateHTML(folders);
 
     // Insert the contents into the base HTML and write to index.html
-    const indexContent = insertContentIntoBase(baseContent, navbarContent, mainHtml, allHtml, "Projects - Portfolio", 0);
+    const indexContent = insertContentIntoBase(baseContent, navbarContent, mainHtml, "", "Projects - Portfolio", 0);
     fs.writeFile(indexPath, indexContent, (err) => {
         if (err) {
             return console.log('Unable to write index.html file: ' + err);

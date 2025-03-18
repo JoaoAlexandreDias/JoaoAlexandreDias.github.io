@@ -8,35 +8,45 @@
 body {
     font-family: "Roboto", sans-serif;
     margin: 0;
-    height: 100vh;
     background-color: #212121;
     color:white;
+    min-height: 100vh ;
 }
 
 img{
-    clip-path: polygon(
-        20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px),
-        calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px), 0 20px
+   clip-path: polygon(
+        5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px),
+        calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px), 0 5px
     ); /* Beveled cut on all corners */
 }
 
 header{
     font-family: "Roboto", sans-serif;
-    font-size: 2.5em;
-    font-weight: 700;
+
+    flex-direction: column;
+}
+header h1{
+    font-size: 3em;
+    font-weight: 500;
+}
+header h3{
+    font-size: 1.2em;
+    font-weight: 200;
 }
 nav{
     font-family: "Work Sans", sans-serif;
-    background: linear-gradient(to bottom, rgb(8, 53, 76), #212121);
-    width: 100%;
+    background: linear-gradient(to bottom, rgb(8, 53, 76), rgba(0, 0, 0, 0));
     text-align: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    padding: 20px 0px 10px 0px;
+    justify-content: space-around;
+    position: sticky;
+    top:0;
+    padding: 30px 0px;
+    z-index: 1000;
 }
-nav>div{
-    margin-top:20px;
+nav>section{
     width: fit-content;
     display: flex;
     flex-direction: row;
@@ -45,8 +55,11 @@ nav>div{
     font-size: 8pt;
     font-variant: small-caps;
 }
-nav>div h2{
+nav>section h2{
     font-weight: 200;
+}
+nav>section h3{
+    font-weight: 100;
 }
 nav a{
     color: rgb(213, 213, 213);
@@ -73,70 +86,37 @@ nav a:hover{
     height: 20px;
 }
 main{
-    margin-left: 20px;
-    margin-right: 20px;
+    width: 80%;
     padding-top: 20px;
+    margin:auto;
+}
+main:has(section){
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-
-}
-main h1{
-    font-size: 2.5em;
-}
-main h1:has(+ p){
-    margin-bottom: -10px;
-}
-main h2{
-    font-size: 2em;
-}
-main h2:has(+ p){
-    margin-bottom: -10px;
-}
-main p{
-    text-align: justify;
-}
-main section{
-    width: 100%;
-    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
-#all_projects{
-    margin-left: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content:flex-start;
-    align-content: flex-start;
-    margin-right: 20px;
+main section{
+    margin: 20px 0px;
 }
-#all_projects div{
+main section:first-child h1{
+    font-size: 2em;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+main section>img{
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    height: auto;
 }
-#all_projects div article{
-    width: calc(100% / 6);
-    height: 150px;
-}
-article {
-    width: calc(100% / 3);
-    box-sizing: border-box;
-    padding: 10px;
-    overflow: hidden;
-    height: 300px; /* Set a fixed height */
-    
-}
+
+
 article img {
     width: 100%;
     height: 100%; /* Ensure the image takes the full height of the figure */
     object-fit: cover; /* Cover the figure area without stretching */
     filter: brightness(0.6);
-    clip-path: polygon(
+    /*clip-path: polygon(
         20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px),
         calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px), 0 20px
     ); /* Beveled cut on all corners */
@@ -144,6 +124,14 @@ article img {
 article img:hover{
     filter: brightness(1);
     transition: filter 0.2s ease-in-out;
+}
+
+footer{
+    width: 100%;
+    background: linear-gradient(to top, rgb(8, 53, 76), rgba(0, 0, 0, 0));
+    padding: 30px 0px 20px 0px;
+    text-align: center;
+    color: white;
 }
 .center_full{
     width: 100%;
@@ -207,12 +195,6 @@ article img:hover{
 .full_size{
     width: 100%;
     height: auto;
-    margin:5px;
-}
-
-.spacer{
-    width: 100%;
-    height: 20px;
 }
 
 .image-clickable {
@@ -244,62 +226,36 @@ article img:hover{
     opacity: 1;
 }
 
-#main-content{
-    border-bottom-left-radius: 20px; /* Adjust the radius value as needed */
-    overflow: hidden; /* Ensure content doesn't overflow the rounded corner */
-}
-#about{
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-#image-grid div > div {
-    display: flex;
-	justify-content: center;
-	align-items: center;
-}
-#image-grid div > div > img {
-    width: 100%;
-	height: 100%;
-	object-fit: cover;
-	border-radius: 5px;
-}
-#image-grid {
-    display: block;
-    width: 100%;
-
-}
-#image-grid div {
+.image-grid {
     display: grid;
-	grid-gap: 10px;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	grid-auto-rows: 200px;
-	grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fill, minmax(200px , 1fr));
+    grid-auto-rows: 200px;
+    gap: 10px;
+    grid-auto-flow: dense;
+
 }
-#image-grid .wide {
+.image-grid article > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+}
+.image-grid div {
+    width: 100%;
+    height: 100%;
+}
+.image-grid div > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.image-grid .large {
+	grid-column: span 3;
+	grid-row: span 3;
+}
+.image-grid .medium {
 	grid-column: span 2;
-}
-#image-grid .tall {
 	grid-row: span 2;
 }
-#image-grid .big {
-	grid-column: span 2;
-	grid-row: span 2;
-}
-
-
-/*#Titulo_Intro{
-
-    text-align: center;
-    margin: 10px;
-
-}
-#Titulo_Intro h1{
-    font-size: 3em;
-    font-weight: 900;
-    color: #be9a7e;
-    margin: 10px;
-}/*
 
 /* @media (max-width: 1000px) {
     nav{

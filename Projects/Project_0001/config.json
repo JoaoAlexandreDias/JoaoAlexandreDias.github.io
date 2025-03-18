@@ -1,6 +1,7 @@
 {
     "title": "Yeetus",
     "date": "2025-03-10",
+    "importance":"low",
     "front_image": "Snacher.jpg",
     "category": "Illustration",
     "sections": [
@@ -16,7 +17,7 @@
             "class": "half_left",
             "content_file": "",
             "pictures": ["Snacher.jpg"],
-            "picture_class": "full_size"
+            "picture_class": ""
         },
         {
             "id": "section3",
@@ -26,15 +27,8 @@
             "picture_class": ""
         },
         {
-            "id": "section3",
-            "class": "spacer",
-            "content_file": "",
-            "pictures": [],
-            "picture_class": ""
-        },
-        {
             "id": "image-grid",
-            "class": "",
+            "class": "center_full image-grid",
             "content_file": "",
             "pictures": ["Snacher.jpg","Meteorite.jpg","Art_Final.jpg","Art_Final-2.png","Meteorite.jpg","Art_Final.jpg","Art_Final-2.png","Meteorite.jpg","Art_Final.jpg","Art_Final-2.png"],
             "picture_class": ""

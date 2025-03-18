@@ -8,6 +8,7 @@ const directoryPath = path.join(__dirname, 'Projects');
 const defaultConfig = {
     title: "New Project",
     date: "",
+    importance: "",
     front_image: "",
     category: "",
     sections: [
