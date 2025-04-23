@@ -1,121 +1,3 @@
-/*document.addEventListener("DOMContentLoaded", function() {
-    fetch("Templates/Navbar.html")
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("navbar-content").innerHTML = data;
-
-            // Add event listeners to navbar links
-            document.querySelectorAll('nav a[data-target]').forEach(link => {
-                link.addEventListener('click', handleNavLinkClick);
-            });
-        });
-
-    // Automatically load the "projects.html" content
-    loadContent("main_projects.html", "main_content");
-    loadContent("projects.html", "all_projects", () => {
-        initializePage("main_projects.html");
-    });
-});
-
-function handleNavLinkClick(event) {
-    event.preventDefault();
-    const main_target = this.getAttribute('data-target') === "projects" ? "main_projects.html" : this.getAttribute('data-target');
-    const sub_target = this.getAttribute('data-target') === "projects" ? "projects.html" : this.getAttribute('data-sub-target');
-    const title = this.getAttribute('data-title');
-
-    loadContent(main_target, "main_content", () => {
-        document.title = title;
-        initializePage(main_target);
-    });
-
-    if (sub_target) {
-        loadContent(sub_target, "all_projects", () => {
-            document.title = title;
-            initializePage(sub_target);
-        });
-    } else {
-        document.getElementById("all_projects").innerHTML = "";
-    }
-}
-
-function loadContent(url, elementId, callback) {
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById(elementId).innerHTML = data;
-            if (callback) callback();
-        });
-}
-
-function initializePage(main_target) {
-    addProjectLinksEventListeners();
-    addCategoryEventListeners();
-    addImageClickEventListeners();
-    if (main_target == "main_projects.html" || main_target == "projects.html") {
-        document.getElementById("categories").removeAttribute("style");
-        document.getElementById("main_content").removeAttribute("style");
-        filterProjects("All");
-    } else {
-        document.getElementById("categories").style.display = "none";
-        document.getElementById("main_content").style.flexDirection = "row";
-    }
-}
-
-// Function to add event listeners to project links
-function addProjectLinksEventListeners() {
-    document.querySelectorAll('main article a[data-target], section article a[data-target]').forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const target = this.getAttribute('data-target');
-            const title = this.getAttribute('data-title');
-            const sub_target = this.getAttribute('data-sub-target');
-
-            loadContent(target, "main_content", () => {
-                document.title = title;
-                initializePage(target);
-            });
-
-            if (sub_target) {
-                loadContent(sub_target, "all_projects", () => {
-                    document.title = title;
-                    initializePage();
-                });
-            } else {
-                document.getElementById("all_projects").innerHTML = "";
-            }
-        });
-    });
-}
-
-// Function to add event listeners to category links
-function addCategoryEventListeners() {
-    document.querySelectorAll('#categories a[data-category]').forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const category = this.getAttribute('data-category');
-            loadProjectsPage(category);
-        });
-    });
-}
-
-// Function to filter projects based on category
-function filterProjects(category) {
-    document.querySelectorAll('main article[data-category]').forEach(article => {
-        article.style.display = (category === "All" || article.getAttribute('data-category') === category) ? "block" : "none";
-    });
-    document.querySelectorAll('section article[data-category]').forEach(article => {
-        article.style.display = (category === "All" || article.getAttribute('data-category') === category) ? "block" : "none";
-    });
-}
-
-// Function to load the projects page and filter by category
-function loadProjectsPage(category) {
-    loadContent("main_projects.html", "main_content", () => {
-        initializePage("main_projects.html");
-        filterProjects(category);
-    });
-}
-*/
 
 // Function to add event listeners to images for fullscreen mode
 
@@ -213,78 +95,258 @@ function addImageClickEventListeners() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+function addMouseoverProjectTitle() {
+    document.querySelectorAll('main article').forEach(article => {
+        const title = article.querySelector('img')?.alt;
+        if (title) {
+            const titleOverlay = document.createElement('div');
+            titleOverlay.classList.add('title-overlay');
+            const titleElement = document.createElement('h6');
+            titleElement.style.margin = '10px';
+            titleElement.textContent = title;
+            titleOverlay.appendChild(titleElement);
+            titleOverlay.style.position = 'absolute';
+            titleOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            titleOverlay.style.color = 'white';
+            titleOverlay.style.display = 'none';
+            titleOverlay.style.pointerEvents = 'none';
+            titleOverlay.style.width = '100%';
+            titleOverlay.style.height = '100%'; // Match the article's height
+            titleOverlay.style.textAlign = 'center';
+            titleOverlay.style.top = '0'; // Cover the entire article
+            titleOverlay.style.left = '0';
+            titleOverlay.style.opacity = '0'; // Start fully transparent
+            titleOverlay.style.transition = 'opacity 0.3s ease'; // Smooth fade-in/out
+            titleOverlay.style.alignItems = 'center';
+            titleOverlay.style.justifyContent = 'center';
+            titleOverlay.style.fontSize = '1.5em';
+            titleOverlay.style.overflowWrap = 'break-word'; // Ensure text wraps within the container
+            article.style.position = 'relative';
+            article.appendChild(titleOverlay);
+
+            article.addEventListener('mouseenter', () => {
+                titleOverlay.style.display = 'flex';
+                titleOverlay.style.opacity = '1'; // Fade in
+            });
+
+            article.addEventListener('mouseleave', () => {
+                titleOverlay.style.opacity = '0'; // Fade out
+                setTimeout(() => {
+                    titleOverlay.style.display = 'none';
+                }, 300); // Wait for the fade-out to complete before hiding
+            });
+        }
+    });
+}
+
+function updateImageGridLayout(imageGrid) {
+    const articles = Array.from(imageGrid.children);
+    const childCount = articles.length;
+
+    let horizontalCount = 0;
+    let verticalCount = 0;
+
+    articles.forEach(article => {
+        const images = Array.from(article.getElementsByTagName('img'));
+
+        images.forEach(img => {
+            const imgWidth = img.naturalWidth;
+            const imgHeight = img.naturalHeight;
+
+            if (imgWidth > imgHeight) {
+                horizontalCount++;
+            } else {
+                verticalCount++;
+            }
+        });
+    });
+
+    let columns;
+    if (horizontalCount > verticalCount) {
+        columns = childCount < 3 ? childCount : 3;
+    } else {
+        columns = childCount < 6 ? childCount : 6;
+    }
+
+    imageGrid.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+    imageGrid.style.gridAutoRows = `${(window.innerHeight * 0.9) / (horizontalCount > verticalCount ? 3 : 2)}px`;
+}
+
+function reorderProjectsOnResize() {
+    const container = document.querySelector('main'); // The container holding the projects
+    const articles = Array.from(container.querySelectorAll('article')); // All project articles
+    const navbar = document.getElementById("navbar-content");
+    const h1 = navbar.querySelector("h1");
+    const h3 = navbar.querySelector("h3");
+
+    // Add a resize event listener
+    window.addEventListener('resize', () => {
+
+        // Check if the screen width is larger than 768px
+        if (window.innerWidth <= 768) {
+            h1.textContent = "JAD";
+            h3.style.display = "none";
+             // Do not reorder on smaller screens
+
+             document.querySelectorAll('.image-grid article').forEach(article => {
+                if (article.classList.contains('wide')) {
+                    article.removeAttribute("style");
+                    const currentSpan = parseInt(getComputedStyle(article).gridRow.replace('span ', ''), 10);
+                    if (currentSpan > 1) {
+                        article.style.gridRow = `span ${currentSpan - 1}`; // Adjust the row span if greater than 1
+                    }
+                }else if (article.classList.contains('tall')) {
+                    article.style.gridColumn = ``;
+                   // const currentSpan = parseInt(getComputedStyle(article).gridColumn.replace('span ', ''), 10);
+                   // article.style.gridColumn = `span ${currentSpan + 1}`;
+                }
+            });
+        }else{
+            h1.textContent = "JOÃO ALEXANDRE DIAS";
+            h3.style.display = "block";
+
+            document.querySelectorAll('.image-grid article').forEach(article => {
+                if (article.classList.contains('tall')) {
+                    article.removeAttribute("style");
+                    const currentSpan = parseInt(getComputedStyle(article).gridRow.replace('span ', ''), 10);
+                    if (currentSpan > 1) {
+                        article.style.gridRow = `span ${currentSpan +1}`; // Adjust the Column span if greater than 1
+                    }
+                }else if (article.classList.contains('wide')) {
+                    article.removeAttribute("style");
+                    const currentSpan = parseInt(getComputedStyle(article).gridColumn.replace('span ', ''), 10);
+                    if (currentSpan > 1) {
+                        article.style.gridColumn = `span ${currentSpan + 1}`; // Adjust the row span if greater than 1
+                    }
+                }
+            });
+        }
+        // Capture the current state of the articles
+        
+        const state = Flip.getState(articles);
+
+            // Example: Sort by data-date in descending order for larger screens
+            articles.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
+    
+
+        // Append the articles back to the container in the new order
+        articles.forEach(article => container.appendChild(article));
+
+        // Animate the transition to the new state
+        Flip.from(state, {
+            duration: 0.2, // Animation duration
+            ease: 'power1.inOut', // Easing function
+            //stagger: 0.05, // Stagger effect for each article
+        });
+    });
+}
+
+
+function setupRootPage() {
+    const grid = document.getElementById("main_content");
+
+    // Add active state to nav
+    document.getElementById("nav_projects").classList.add("active");
+
+    // Ensure grid class is applied
+    grid.classList.add("image-grid");
+
+    // Sort articles by date
+    const articles = Array.from(document.querySelectorAll('main article[data-date]'));
+    articles.sort((a, b) => new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date')));
+    const container = document.querySelector('main');
+    articles.forEach(article => container.appendChild(article));
+    const navbar = document.getElementById("navbar-content");
+    const h1 = navbar.querySelector("h1");
+    const h3 = navbar.querySelector("h3");
+
+
+    // Apply title overlays on hover
+    addMouseoverProjectTitle();
+
+    if (window.innerWidth <= 768) {
+        h1.textContent = "JAD";
+        h3.style.display = "none";
+         // Do not reorder on smaller screens
+
+         document.querySelectorAll('.image-grid article').forEach(article => {
+            if (article.classList.contains('wide')) {
+                const currentSpan = parseInt(getComputedStyle(article).gridRow.replace('span ', ''), 10);
+                article.style.gridRow = `span ${currentSpan - 1}`;
+            }else if (article.classList.contains('tall')) {
+               // const currentSpan = parseInt(getComputedStyle(article).gridColumn.replace('span ', ''), 10);
+               // article.style.gridColumn = `span ${currentSpan + 1}`;
+            }
+        });
+    }else{
+        document.querySelectorAll('.image-grid article').forEach(article => {
+            if (article.classList.contains('tall')) {
+                const currentSpan = parseInt(getComputedStyle(article).gridRow.replace('span ', ''), 10);
+                article.style.gridRow = `span ${currentSpan + 1}`;
+            }else if (article.classList.contains('wide')) {
+                const currentSpan = parseInt(getComputedStyle(article).gridColumn.replace('span ', ''), 10);
+                article.style.gridColumn = `span ${currentSpan + 1}`;
+            }
+        });
+    }
+    
+
+    // Animate navbar shrinking on scroll
+    window.addEventListener("scroll", () => {
+        
+    
+    if (window.innerWidth <= 768) {}else{
+        if (window.scrollY > 0) {
+            h1.style.fontSize = "1.2em";
+            h3.style.fontSize = "0.7em";
+            navbar.style.padding = '30px 20px';
+        } else {
+            h1.removeAttribute("style");
+            h3.removeAttribute("style");
+            navbar.removeAttribute("style");
+        }
+    }});
+
+
+    // Register Flip plugin
+    gsap.registerPlugin(
+        Flip, ScrollTrigger, Observer, ScrollToPlugin, Draggable,
+        MotionPathPlugin, EaselPlugin, PixiPlugin, TextPlugin,
+        RoughEase, ExpoScaleEase, SlowMo, CustomEase
+    );
+
+    reorderProjectsOnResize();
+
+}
+
+
+
+window.onload = function(){
     const isRootPath = window.location.pathname === "/";
     const isAboutPath = window.location.pathname === "/about.html";
     const isProjectsPath = window.location.pathname.includes("/Projects/");
-    const isBackEndPath = window.location.pathname.includes("/Backend");
+    const isBackEndPath = window.location.pathname.includes("/backend");
+
     if (isProjectsPath) {
         addImageClickEventListeners();
         document.getElementById("navbar-content").style.position = "relative";
         const imageGrid = document.querySelector('#Image_Grid');
-        if (imageGrid) {
-            const childCount = imageGrid.children.length;
-
-            if (childCount < 6) {
-                imageGrid.style.gridTemplateColumns = `repeat(${childCount}, 1fr)`;
-            } else {
-                imageGrid.style.gridTemplateColumns = 'repeat(6, 1fr)';
-            }
-                imageGrid.style.gridAutoRows = `${(window.innerHeight * 0.9) / 2}px`;
-        }
+        updateImageGridLayout(imageGrid);
     }
     if (isRootPath) {
-        document.getElementById("nav_projects").classList.add("active");
-        document.getElementById("main_content").classList.add("image-grid");
-        // Sort articles by data-date attribute
-        const dates = Array.from(document.querySelectorAll('main article[data-date]'));
-        dates.sort((a, b) => new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date')));
+        setupRootPage();
 
-        // Append sorted articles back to the container
-        const container = document.querySelector('main');
-        dates.forEach(article => container.appendChild(article));
-
-        // Add mouseover event to display project title near the mouse pointer
-        document.querySelectorAll('main article').forEach(article => {
-            const title = article.querySelector('img')?.alt;
-            if (title) {
-            const titleOverlay = document.createElement('div');
-            titleOverlay.classList.add('title-overlay');
-            titleOverlay.textContent = title;
-            titleOverlay.style.position = 'fixed';
-            titleOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-            titleOverlay.style.color = 'white';
-            titleOverlay.style.padding = '5px 10px';
-            titleOverlay.style.borderRadius = '5px';
-            titleOverlay.style.display = 'none';
-            titleOverlay.style.pointerEvents = 'none';
-            titleOverlay.style.whiteSpace = 'nowrap'; // Prevent text wrapping
-            titleOverlay.style.width = 'auto'; // Automatically adjust width to fit content
-            titleOverlay.style.transform = 'translate(-50%, calc(-100% - 5px))'; // Center horizontally and position 5px above the mouse
-            document.body.appendChild(titleOverlay);
-
-            article.addEventListener('mousemove', (event) => {
-                titleOverlay.style.left = `${event.clientX + 10}px`;
-                titleOverlay.style.top = `${event.clientY + 10}px`;
-                titleOverlay.style.display = 'block';
-            });
-
-            article.addEventListener('mouseleave', () => {
-                titleOverlay.style.display = 'none';
-            });
-            }
-        });
     }else if (isAboutPath) {
         document.getElementById("nav_about").classList.add("active");
         document.getElementById("navbar-content").style.position = "relative";
         document.getElementById("main_content").style.justifyContent = "space-between";
         document.getElementById("footer_content").style.position = "fixed";
         document.getElementById("footer_content").style.bottom = "0";
+        
 
     }else if (isBackEndPath) {
         document.getElementById("navbar-content").style.position = "relative";
-    }
-    // Initialize Quill.js
+        // Initialize Quill.js
     const quill = new Quill('#editor-container', {
         theme: 'snow', // Use the "snow" theme (or "bubble" for a minimal theme)
         placeholder: 'Write something amazing...',
@@ -304,5 +366,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     console.log(`Quill Instances:`, quillInstances);
 
-});
+    }
+};
+
+
+    
+  
 
