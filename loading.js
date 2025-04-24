@@ -162,7 +162,13 @@ function updateImageGridLayout(imageGrid) {
     });
 
     let columns;
-    if (horizontalCount > verticalCount) {
+    if (window.innerWidth <= 768) {
+        if (horizontalCount > verticalCount) {
+            columns = 1;
+        } else {
+            columns = 2;
+        }
+    } else if (horizontalCount > verticalCount) {
         columns = childCount < 3 ? childCount : 3;
     } else {
         columns = childCount < 6 ? childCount : 6;
@@ -332,6 +338,13 @@ window.onload = function(){
         document.getElementById("navbar-content").style.position = "relative";
         const imageGrid = document.querySelector('#Image_Grid');
         updateImageGridLayout(imageGrid);
+        if (window.innerWidth <= 768) {
+            const navbar = document.getElementById("navbar-content");
+            const h1 = navbar.querySelector("h1");
+            const h3 = navbar.querySelector("h3");
+            h1.textContent = "JAD";
+            h3.style.display = "none";
+        }
     }
     if (isRootPath) {
         setupRootPage();
@@ -340,8 +353,18 @@ window.onload = function(){
         document.getElementById("nav_about").classList.add("active");
         document.getElementById("navbar-content").style.position = "relative";
         document.getElementById("main_content").style.justifyContent = "space-between";
-        document.getElementById("footer_content").style.position = "fixed";
-        document.getElementById("footer_content").style.bottom = "0";
+
+
+        if (window.innerWidth <= 768) {
+            const navbar = document.getElementById("navbar-content");
+            const h1 = navbar.querySelector("h1");
+            const h3 = navbar.querySelector("h3");
+            h1.textContent = "JAD";
+            h3.style.display = "none";
+        }else{
+            document.getElementById("footer_content").style.position = "fixed";
+            document.getElementById("footer_content").style.bottom = "0";
+        }
         
 
     }else if (isBackEndPath) {
