@@ -86,7 +86,13 @@ async function generateProjectFiles() {
             if (project.front_image) {
                 const sourceImagePath = path.join(__dirname, 'backend', project.front_image);
                 const destinationImagePath = path.join(mediaFolderPath, path.basename(project.front_image));
-                await copyFile(sourceImagePath, destinationImagePath);
+                try {
+                    await fs.access(destinationImagePath); // Check if the file exists
+                  //  console.log(`File already exists: ${destinationImagePath}, skipping...`);
+                } catch {
+                    await copyFile(sourceImagePath, destinationImagePath);
+                    console.log(`File copied: ${sourceImagePath} -> ${destinationImagePath}`);
+                }
             }
 
             let baseTemplate = await fs.readFile(basePath, 'utf8');
@@ -96,8 +102,10 @@ async function generateProjectFiles() {
             const linkPrefix = getRelativePath(projectFolderPath, __dirname);
 
             // Replace the placeholder in the navbar template
-            console.log(`Link Prefix: ${linkPrefix}`);
+          //  console.log(`Link Prefix: ${linkPrefix}`);
             baseTemplate = baseTemplate.replace('<link rel="stylesheet" href="CSS/main_css.css">', `<link rel="stylesheet" href="${linkPrefix}CSS/main_css.css">`);
+            baseTemplate = baseTemplate.replace('<link rel="icon" href="CSS/images/Website_icon_32.png" sizes="32x32" type="image/png">', `<link rel="icon" href="${linkPrefix}CSS/images/Website_icon_32.png" sizes="32x32" type="image/png">`);
+            baseTemplate = baseTemplate.replace('<link rel="icon" href="CSS/images/Website_icon_64.png" sizes="64x64" type="image/png">', `<link rel="icon" href="${linkPrefix}CSS/images/Website_icon_64.png" sizes="64x64" type="image/png">`);
             baseTemplate = baseTemplate.replace('<script src="loading.js"></script>', `<script src="${linkPrefix}loading.js"></script>`);
             navbarTemplate = navbarTemplate.replace('<a id="nav_projects" href=""><h2>Projects</h2></a>', `<a id="nav_projects" href="${linkPrefix}"><h2>Projects</h2></a>`);
             navbarTemplate = navbarTemplate.replace('<a id="nav_about" href="about.html" data-title="About - Portfolio"><h2>About</h2></a>', `<a id="nav_about" href="${linkPrefix}about.html" data-title="About - Portfolio"><h2>About</h2></a>`);
@@ -117,7 +125,13 @@ async function generateProjectFiles() {
                     } else if (section.content_file.includes('uploads/')) {
                         const sourceImagePath = path.join(__dirname, 'backend', section.content_file);
                         const destinationImagePath = path.join(mediaFolderPath, path.basename(section.content_file));
-                        await copyFile(sourceImagePath, destinationImagePath);
+                        try {
+                            await fs.access(destinationImagePath); // Check if the file exists
+                         //   console.log(`File already exists: ${destinationImagePath}, skipping...`);
+                        } catch {
+                            await copyFile(sourceImagePath, destinationImagePath);
+                            console.log(`File copied: ${sourceImagePath} -> ${destinationImagePath}`);
+                        }
 
                         const contentFilePath = section.content_file.replace('uploads/', 'media/');
                         sectionsContent += `<section id="${section.section_id}" class="${section.class_name} image-clickable">\n`;
@@ -125,15 +139,22 @@ async function generateProjectFiles() {
                         sectionsContent += `</section>\n`;
                     }
                 }else{
+                    sectionsContent += `<h3>Process / Old Models</h3>\n`;
                     sectionsContent += `<section id="${section.section_id}" class="${section.class_name}">\n`;
                     const pictures = safeParseJSON(section.pictures, []);
                     if (section.pictures){
-                        console.log(pictures);
+                      //  console.log(pictures);
                         
                         for (const picture of pictures) {
                             const sourceImagePath = path.join(__dirname, 'backend', picture);
                             const destinationImagePath = path.join(mediaFolderPath, path.basename(picture));
-                            await copyFile(sourceImagePath, destinationImagePath);
+                            try {
+                                await fs.access(destinationImagePath); // Check if the file exists
+                           //     console.log(`File already exists: ${destinationImagePath}, skipping...`);
+                            } catch {
+                                await copyFile(sourceImagePath, destinationImagePath);
+                                console.log(`File copied: ${sourceImagePath} -> ${destinationImagePath}`);
+                            }
 
                             const picturePath = picture.replace('uploads/', 'media/');
                             sectionsContent += '<article class="image-clickable">\n';
@@ -152,8 +173,13 @@ async function generateProjectFiles() {
             finalContent = finalContent.replace('<!-- Main Content -->', sectionsContent);
 
             const projectIndexPath = path.join(projectFolderPath, 'index.html');
-            await fs.writeFile(projectIndexPath, finalContent, 'utf8');
-            console.log(`index.html created at: ${projectIndexPath}`);
+
+            if (!(await directoryExists(projectIndexPath))) { 
+                await fs.writeFile(projectIndexPath, finalContent, 'utf8');
+                console.log(`index.html created at: ${projectIndexPath}`);
+            }else{
+               // console.log(`index.html already exists at: ${projectIndexPath}, skipping...`);
+            }
         }
     } catch (err) {
         console.error(`Error generating project files: ${err.message}`);
@@ -170,7 +196,7 @@ async function generateIndexFile() {
                 if (project.front_image) {
                     const image_name = path.basename(project.front_image).replace("uploads/", "");
                     const imagePath = path.join(directoryPath, project.folder_name, 'media', image_name);
-                    console.log(imagePath);
+                  //  console.log(imagePath);
                     try {
                         await fs.access(imagePath);
                         imageTag = `<img src="./Projects/${project.folder_name}/media/${path.basename(project.front_image)}" alt="${project.title}">`;

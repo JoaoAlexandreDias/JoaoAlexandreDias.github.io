@@ -102,8 +102,8 @@ function addMouseoverProjectTitle() {
             const titleOverlay = document.createElement('div');
             titleOverlay.classList.add('title-overlay');
             const titleElement = document.createElement('h6');
-            titleElement.style.margin = '10px';
-            titleElement.textContent = title;
+            titleElement.style.margin = '30px';
+            titleElement.innerHTML = title.replace(/ - /g, '<br>');
             titleOverlay.appendChild(titleElement);
             titleOverlay.style.position = 'absolute';
             titleOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
@@ -120,6 +120,7 @@ function addMouseoverProjectTitle() {
             titleOverlay.style.alignItems = 'center';
             titleOverlay.style.justifyContent = 'center';
             titleOverlay.style.fontSize = '1.5em';
+            titleOverlay.style.lineHeight = '1.2em'; // Adjust line height for better spacing
             titleOverlay.style.overflowWrap = 'break-word'; // Ensure text wraps within the container
             article.style.position = 'relative';
             article.appendChild(titleOverlay);
