@@ -96,6 +96,7 @@ function addImageClickEventListeners() {
 }
 
 function addMouseoverProjectTitle() {
+    /*
     document.querySelectorAll('main article').forEach(article => {
         const title = article.querySelector('img')?.alt;
         if (title) {
@@ -138,6 +139,7 @@ function addMouseoverProjectTitle() {
             });
         }
     });
+    */
 }
 
 function updateImageGridLayout(imageGrid) {
@@ -269,7 +271,7 @@ function setupRootPage() {
 
 
     // Apply title overlays on hover
-    addMouseoverProjectTitle();
+    //addMouseoverProjectTitle();
 
     if (window.innerWidth <= 768) {
         h1.textContent = "JAD";
