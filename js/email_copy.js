@@ -1,13 +1,22 @@
 function setup() {
+    // Defenição de que não será usado um canvas
     noCanvas();
+    // Seleciona o elemento com o id 'email'
     var email = select("#email");
+    // Seleciona o elemento pai do email
     var email_parent = email.parent();
     
+    // Cria um novo elemento de input
     const email_input = createInput();
+    // Define o valor do input como o texto do elemento email
     email_input.value(email.elt.innerText);
+    // Esconde o input
     email_input.hide();
 
+    // Cria um botão para copiar o email
     const email_button = createButton('Copy');
+    // Define o estilo do botão
+    email_button.style('left', '50%');
     email_button.style('margin-top', '5px');
     email_button.style('padding', '7px');
     email_button.style('backgroundColor', 'rgb(54 54 85)');
@@ -23,16 +32,12 @@ function setup() {
     email_button.style('zIndex', '1000');
     email_button.style('position', 'absolute');
     email_button.style('width', '70px');
+    // Esconde o botão inicialmente
     email_button.hide();
+    // Adiciona o botão ao elemento pai do email
     email_button.parent(email_parent);
 
-
-
-
-
-
-
-
+    // Adiciona um evento de mousePressed ao botão
     email_button.mousePressed(function() {
         //email_input.show();
         navigator.clipboard.writeText(email_input.elt.value)
@@ -45,7 +50,7 @@ function setup() {
         console.log(email_input.elt.value);
         // email_input.hide();
     });
-
+    // Adiciona eventos de mouseOver e mouseOut ao elemento email
     email.mouseOver(function() {
         email_button.show();
     });
@@ -55,10 +60,6 @@ function setup() {
             email_button.hide();
         }, 2000);
     });
-
-    console.log(email.parent());
-
-  noLoop();
 }
 function draw() {
 
